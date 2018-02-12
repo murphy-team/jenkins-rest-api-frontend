@@ -109,9 +109,9 @@ module.exports = function (env) {
                     loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
                 },
                 {
-                    test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
-                    loader: 'file-loader?name=[name].[ext]'
-                },
+                    test: /\.png$/,
+                    loader: 'url-loader?limit=10000&mimetype=image/png'
+                }
             ]
         },
         plugins: [

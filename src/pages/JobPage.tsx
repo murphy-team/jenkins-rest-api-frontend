@@ -1,11 +1,20 @@
 import * as React from "react";
-import { JobPageDTO } from '../domain/pages/JobPageDTO';
-import { TransitionGroup } from "react-transition-group";
+import {JobPageDTO} from '../domain/pages/JobPageDTO';
+import {TransitionGroup} from "react-transition-group";
 import * as CSSTransition from "react-transition-group/CSSTransition";
-import { ButtonComponent } from '../components/CommonComponents/ButtonComponent';
-import { InputText } from '../components/CommonComponents/InputTex';
+import {ButtonComponent} from '../components/CommonComponents/ButtonComponent';
+import {InputText} from '../components/CommonComponents/InputTex';
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {HeaderComponent} from "../components/HeaderComponent";
+import {RowLabelComponent} from "../components/CommonComponents/RowComponent";
+
+const jenkinsImage = require("../../assets/jenkins.png");
+
+let imageStyle = {
+    height: "150px",
+    width: "auto"
+};
 
 export interface IPropsJobPage {
     jobPage?: JobPageDTO;
@@ -30,21 +39,18 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                     <CSSTransition
                         classNames="animation-job-page"
                         appear={true}
-                        timeout={{ enter: 5000, exit: 5000 }}
+                        timeout={{enter: 5000, exit: 5000}}
                     >
-                        <div className="paper-margins">
-                            <MuiThemeProvider>
-                                <Paper zDepth={2}>
-                                    
-                                    <span className="application-title">Jenkins job creator</span>
-                                    <ButtonComponent
-                                        onButtonPressed={() => { console.log("holaaa") }}
-                                        label={"Add"} value={""}
-                                        primary={true} />
-                                    <InputText onChangeText={(event: object, newValue: string) => { console.log(newValue) }} />
-                                </Paper>
-                            </MuiThemeProvider>
+                        <div>
+                            <div className="paper-margins">
+                                <HeaderComponent/>
+                            </div>
+
+                            <div className="well col-md-6 row-separation">
+                                <RowLabelComponent buttonText={"What's this?"} labelText={"URL (git SCM)"}/>
+                            </div>
                         </div>
+
                     </CSSTransition>
                 </TransitionGroup>
             </div>
