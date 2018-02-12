@@ -40,17 +40,21 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                         classNames="animation-job-page"
                         appear={true}
                         timeout={{enter: 5000, exit: 5000}}
-                    >
+                                                            >
                         <div>
                             <div className="paper-margins">
                                 <HeaderComponent/>
                             </div>
-
-                            <div className="well col-md-6 row-separation">
-                                <RowLabelComponent buttonText={"What's this?"} labelText={"URL (git SCM)"}/>
+                            <div className="row row-separation">
+                                <div className="well col-md-6">
+                                    <RowLabelComponent buttonText={"What's this?"} labelText={"URL (git SCM)"}/>
+                                </div>
+                                <div className="well col-md-6">
+                                    <RowLabelComponent buttonText={"What's this?"} labelText={"Job name"}/>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </CSSTransition>
                 </TransitionGroup>
             </div>

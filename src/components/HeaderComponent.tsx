@@ -30,11 +30,11 @@ export class HeaderComponent extends React.Component<IPropsHeaderComponent, ISta
                 <MuiThemeProvider>
                     <Paper zDepth={3}>
                         <div className="row">
-                            <div className="col-md-offset-2 col-md-3">
+                            <div className="col-md-offset-1 col-md-3">
                                 <h1 className="application-title">Jenkins job creator panel control</h1>
                             </div>
                             <div className="row photo-header">
-                                <div className="col-md-offset-2 col-md-3">
+                                <div className="col-md-offset-4 col-md-3">
                                     <img src={jenkinsImage} style={imageStyle}/>
                                 </div>
                             </div>
