@@ -1,9 +1,10 @@
 import * as React from "react";
-import {HeaderComponent} from "./HeaderComponent";
-import {RowLabelWithDialogButtonComponent} from "./CommonComponents/IRowLabelWithDialogButtonComponent";
+import {RowLabelWithDialogButtonComponent} from "./CommonComponents/RowLabelWithDialogButtonComponent";
 import {RowInputTextComponent} from "./CommonComponents/RowInputTextComponent";
 
 export interface IPropsRowComponent {
+    onChangeText: (value: string) => any;
+    valueToText: string;
     spanlabelText: string;
     buttonText: string;
     inputTextBoxLabelText: string;
@@ -30,14 +31,16 @@ export class RowComponent extends React.Component<IPropsRowComponent & IDispatch
             <div>
                 <div className="row row-separation">
                     <div className="well col-md-6">
-                        <RowLabelWithDialogButtonComponent faqDialogTittle={this.props.faqDialogTittle}
+                        <RowLabelWithDialogButtonComponent faqDialogTitle={this.props.faqDialogTittle}
                                                            faqDialogText={this.props.faqDialogText}
                                                            buttonText={this.props.buttonText}
                                                            labelText={this.props.spanlabelText}/>
                     </div>
                     <div className="well col-md-6">
                         <div>
-                            <RowInputTextComponent labelText={this.props.inputTextBoxLabelText}
+                            <RowInputTextComponent valueToText={this.props.valueToText}
+                                                   onChangeText={this.props.onChangeText}
+                                                   labelText={this.props.inputTextBoxLabelText}
                                                    hintText={this.props.inputTextBoxHintText}/>
                         </div>
                     </div>

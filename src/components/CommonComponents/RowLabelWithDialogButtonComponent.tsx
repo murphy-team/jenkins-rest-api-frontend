@@ -9,7 +9,7 @@ export interface IRowLabelWithDialogButtonComponentProps {
     labelText: string;
     buttonText: string;
     faqDialogText: string;
-    faqDialogTittle: string;
+    faqDialogTitle: string;
 }
 
 export interface IRowLabelWithDialogButtonComponentState {
@@ -56,7 +56,7 @@ export class RowLabelWithDialogButtonComponent extends React.Component<IRowLabel
                                          value={this.props.buttonText} primary={true}/>
                         <MuiThemeProvider>
                             <Dialog
-                                title={this.props.faqDialogTittle}
+                                title={this.props.faqDialogTitle}
                                 actions={actions}
                                 modal={false}
                                 open={this.state.open}

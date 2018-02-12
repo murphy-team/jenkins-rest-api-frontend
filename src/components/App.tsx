@@ -1,16 +1,14 @@
 import * as React from "react";
-import {createStore, applyMiddleware, combineReducers} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import * as ReduxThunk from "redux-thunk";
 import {Provider} from "react-redux";
 import {IntlProvider, intlReducer} from "react-intl-redux";
 import reducers from "../reducers/IndexReducers";
 import {composeWithDevTools} from 'redux-devtools-extension';
 import logger from 'redux-logger';
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
-import {NavigationBarComponent} from "./NavigationBar/NavigationBarComponent";
+import {ConnectedRouter, routerMiddleware, routerReducer} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory'
-import {NavigationBarContainer} from "./NavigationBar/NavigationBarContainer";
-import { JobPage } from '../pages/JobPage';
+import {JobPageContainer} from "../pages/JobPage/JobPageContainer";
 
 export const history = createHistory();
 
@@ -39,7 +37,7 @@ export class App extends React.Component<{}, {}> {
                     <div className="container-fluid">
                         <ConnectedRouter history={history}>
                             <div>
-                                <JobPage/>
+                                <JobPageContainer/>
                                 {/* <NavigationBarContainer/>
                                 <Route exact path="/" component={TestPage}/>
                                 <Route path="/test1" component={ToDoPageContainer}/>

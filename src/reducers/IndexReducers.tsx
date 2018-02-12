@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
-import {NavigationBarComponentReducer, NavigationBarComponentState} from "./NavigationBarComponentReducer";
+import {JobPageReducer, JobPageState} from "./JobPageReducer";
 
 export default combineReducers <IReducers> ({
-    NavigationBarComponentReducer,
+    JobPageReducer: JobPageReducer,
 });
 
 export interface IReducers {
-    NavigationBarComponentReducer: NavigationBarComponentState
+    JobPageReducer: JobPageState
 }

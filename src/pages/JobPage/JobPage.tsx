@@ -1,20 +1,20 @@
 import * as React from "react";
-import {JobPageDTO} from '../domain/pages/JobPageDTO';
+import {JobPageDTO} from '../../domain/pages/JobPageDTO';
 import {TransitionGroup} from "react-transition-group";
 import * as CSSTransition from "react-transition-group/CSSTransition";
-import {ButtonComponent} from '../components/CommonComponents/ButtonComponent';
-import {InputText} from '../components/CommonComponents/InputTex';
+import {ButtonComponent} from '../../components/CommonComponents/ButtonComponent';
+import {InputText} from '../../components/CommonComponents/InputTex';
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {HeaderComponent} from "../components/HeaderComponent";
-import {RowLabelWithDialogButtonComponent} from "../components/CommonComponents/IRowLabelWithDialogButtonComponent";
-import {RowInputTextComponent} from "../components/CommonComponents/RowInputTextComponent";
-import {RowComponent} from "../components/RowComponent";
+import {HeaderComponent} from "../../components/HeaderComponent";
+import {RowLabelWithDialogButtonComponent} from "../../components/CommonComponents/RowLabelWithDialogButtonComponent";
+import {RowInputTextComponent} from "../../components/CommonComponents/RowInputTextComponent";
+import {RowComponent} from "../../components/RowComponent";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const jenkinsImage = require("../../assets/jenkins.png");
+const jenkinsImage = require("../../../assets/jenkins.png");
 
 let imageStyle = {
     height: "150px",
@@ -22,10 +22,12 @@ let imageStyle = {
 };
 
 export interface IPropsJobPage {
-    jobPage?: JobPageDTO;
+    jobPage: JobPageDTO;
 }
 
 export interface IDispatchPropsJobPage {
+    onGitUrlTexBox: (gitUrl) => any;
+    onJobNameTexBox: (jobName) => any;
 }
 
 export interface IStateJobPage {
@@ -37,26 +39,13 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
         super(props);
     }
 
-    state = {
-        openWhichURL: false,
-        openWhichJobName: false
-    };
+    private onChangeTextGitUrl(value: any) {
+        this.props.onGitUrlTexBox(value);
+    }
 
-    handleOpenURL = () => {
-        this.setState({openWhichURL: true});
-    };
-
-    handleOpenJobName = () => {
-        this.setState({openWhichJobName: true});
-    };
-
-    handleCloseURL = () => {
-        this.setState({open: false});
-    };
-
-    handleCloseJobName = () => {
-        this.setState({open: false});
-    };
+    private onChangeTextJobName(value: any) {
+        this.props.onJobNameTexBox(value)
+    }
 
     public render() {
         return (
@@ -72,13 +61,13 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                                 <HeaderComponent/>
                             </div>
 
-                            <RowComponent faqDialogTittle={"About the Git url"}
+                            <RowComponent valueToText={this.props.jobPage._jobDTO._url} onChangeText={this.onChangeTextGitUrl.bind(this)} faqDialogTittle={"About the Git url"}
                                           faqDialogText={"This is the Git url repository used to build the job inside Jenkins. " +
                                           "This repository should contain a Jenkinsfile in order to conduct the build."}
                                           spanlabelText={"URL (git SCM)"} buttonText={"Which URL?"}
                                           inputTextBoxLabelText={"URL"} inputTextBoxHintText={"git@example:...git"}/>
 
-                            <RowComponent faqDialogTittle={"About the job name"}
+                            <RowComponent valueToText={this.props.jobPage._jobDTO._jobName} onChangeText={this.onChangeTextJobName.bind(this)} faqDialogTittle={"About the job name"}
                                           faqDialogText={"This is the job or alias used by Jenkins in order to identify this job. It's also usefull in other " +
                                           "project related structures such as the compile buidls"}
                                           spanlabelText={"Job name"} buttonText={"Job name?"}
