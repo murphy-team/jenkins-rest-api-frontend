@@ -1,0 +1,26 @@
+.animation-job-page-enter {
+    opacity: 0.01;
+  }
+  
+  .animation-job-page-enter.animation-job-page-enter-active {
+    opacity: 1;
+    transition: opacity 3000ms ease-in;
+  }
+  
+  .animation-job-page-leave {
+    opacity: 1;
+  }
+  
+  .animation-job-page-leave.animation-job-page-leave-active {
+    opacity: 0.01;
+    transition: opacity 3000ms ease-in;
+  }
+  
+  .animation-job-page-appear {
+    opacity: 0.01;
+  }
+  
+  .animation-job-page-appear.animation-job-page-appear-active {
+    opacity: 1;
+    transition: opacity 1s ease-in;
+  }

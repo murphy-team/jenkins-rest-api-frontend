@@ -9,7 +9,6 @@ import FindInPage from 'material-ui/svg-icons/action/find-in-page';
 import DownloadFiles from 'material-ui/svg-icons/file/file-download';
 import SearchDatabase from 'material-ui/svg-icons/action/youtube-searched-for'
 import {Link, withRouter} from "react-router-dom";
-import {ToDoPageDTO} from "../../domain/pages/ToDoPageDTO";
 import {RouteComponentProps} from "react-router-dom";
 
 

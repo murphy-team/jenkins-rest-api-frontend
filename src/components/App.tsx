@@ -7,14 +7,10 @@ import reducers from "../reducers/IndexReducers";
 import {composeWithDevTools} from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
-import {WelcomePageContainer} from "../pages/WelcomePageContainer";
-import {ToDoPageContainerII} from "../pages/ToDoPageContainerII";
-import {ToDoPageContainer} from "../pages/ToDoPageContainer";
-import { Route } from 'react-router-dom'
-import {TestPage} from "../pages/TestPage";
 import {NavigationBarComponent} from "./NavigationBar/NavigationBarComponent";
 import createHistory from 'history/createBrowserHistory'
 import {NavigationBarContainer} from "./NavigationBar/NavigationBarContainer";
+import { JobPage } from '../pages/JobPage';
 
 export const history = createHistory();
 
@@ -43,10 +39,11 @@ export class App extends React.Component<{}, {}> {
                     <div className="container-fluid">
                         <ConnectedRouter history={history}>
                             <div>
-                                <NavigationBarContainer/>
+                                <JobPage/>
+                                {/* <NavigationBarContainer/>
                                 <Route exact path="/" component={TestPage}/>
                                 <Route path="/test1" component={ToDoPageContainer}/>
-                                <Route path="/test2" component={ToDoPageContainerII}/>
+                                <Route path="/test2" component={ToDoPageContainerII}/> */}
                             </div>
                         </ConnectedRouter>
                         {this.props.children}
