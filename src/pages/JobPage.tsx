@@ -4,6 +4,8 @@ import { TransitionGroup } from "react-transition-group";
 import * as CSSTransition from "react-transition-group/CSSTransition";
 import { ButtonComponent } from '../components/CommonComponents/ButtonComponent';
 import { InputText } from '../components/CommonComponents/InputTex';
+import Paper from 'material-ui/Paper';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export interface IPropsJobPage {
     jobPage?: JobPageDTO;
@@ -30,13 +32,18 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                         appear={true}
                         timeout={{ enter: 5000, exit: 5000 }}
                     >
-                        <div>
-                            <h1>Hola</h1>
-                            <ButtonComponent
-                                onButtonPressed={() => { console.log("holaaa") }}
-                                label={"Add"} value={""}
-                                primary={true} />
-                            <InputText onChangeText={(event: object, newValue: string) => { console.log(newValue) }} />
+                        <div className="paper-margins">
+                            <MuiThemeProvider>
+                                <Paper zDepth={2}>
+                                    
+                                    <span className="application-title">Jenkins job creator</span>
+                                    <ButtonComponent
+                                        onButtonPressed={() => { console.log("holaaa") }}
+                                        label={"Add"} value={""}
+                                        primary={true} />
+                                    <InputText onChangeText={(event: object, newValue: string) => { console.log(newValue) }} />
+                                </Paper>
+                            </MuiThemeProvider>
                         </div>
                     </CSSTransition>
                 </TransitionGroup>
