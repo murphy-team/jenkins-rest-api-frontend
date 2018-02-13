@@ -25,9 +25,15 @@ export function JobPageReducer(state: JobPageState = new JobPageState(), action:
         case ActionConstants.WRITE_GIT_URL:
             let newGitUrlState = objectAssign({}, state._jobPageDTO, {});
             let gitUrlFromAction = action["gitUrl"];
-            newGitUrlState._jobDTO._url = gitUrlFromAction;
+            const re = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/g);
+            let isAccepted = re.test(gitUrlFromAction);
+
+            if (isAccepted === true) {
+                newGitUrlState._jobDTO._url = gitUrlFromAction;
+            }
             newState = objectAssign({}, state, {_jobPageDTO: newGitUrlState});
             return newState;
+
         case ActionConstants.WRITE_JOB_NAME:
             let newJobNameState = objectAssign({}, state._jobPageDTO, {});
             let jobNameFromAction = action["jobName"];
@@ -59,6 +65,9 @@ export function JobPageReducer(state: JobPageState = new JobPageState(), action:
             newPageShowingJobRequestFailedSnackbar._showSnackBarRequestJobFailed = action["showSnackBarRequestFailed"];
             newState = objectAssign({}, state, {_jobPageDTO: newPageShowingJobRequestFailedSnackbar});
             return newState;
+
+        case ActionConstants.TEST_REGEX_EXPRESSION:
+
     }
             return state;
 

@@ -5,6 +5,7 @@ import {WriteGitURLAction} from "../../actions/WriteGitURLAction";
 import {WriteJobNameAction} from "../../actions/WriteJobNameAction";
 import {CleanTextBoxsAction} from "../../actions/CleanTextBoxsAction";
 import {RequestJobAction} from "../../actions/RequestJobAction";
+import {TestRegexExpressionAction} from "../../actions/TestRegexExpressionAction";
 
 
 const mapStateToProps = (state: IReducers): IPropsJobPage => ({
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch): IDispatchPropsJobPage => ({
     onJobNameTexBox: (jobName) => dispatch(WriteJobNameAction(jobName)),
     onClickCleanTextBoxs: () => dispatch(CleanTextBoxsAction()),
     onClickCreateJob: (gitUrl, jobName) => dispatch(RequestJobAction(gitUrl, jobName)),
+    onTestRegexExpression: () => dispatch(TestRegexExpressionAction())
 });
 
 export const JobPageContainer = (connect<IPropsJobPage, IDispatchPropsJobPage>(

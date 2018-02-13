@@ -22,6 +22,7 @@ export interface IDispatchPropsJobPage {
     onJobNameTexBox: (jobName) => any;
     onClickCleanTextBoxs: () => any;
     onClickCreateJob: (gitUrl, jobName) => any;
+    onTestRegexExpression: () => any;
 }
 
 export interface IStateJobPage {
@@ -43,6 +44,7 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
 
     private onClickCreateJob() {
         this.props.onClickCreateJob(this.props.jobPage._jobDTO._url, this.props.jobPage._jobDTO._jobName);
+
         store.dispatch(SpinnerSendJobChangeAction(false));
     }
 
