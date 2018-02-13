@@ -3,23 +3,15 @@ import {JobPageDTO} from '../../domain/pages/JobPageDTO';
 import {TransitionGroup} from "react-transition-group";
 import * as CSSTransition from "react-transition-group/CSSTransition";
 import {ButtonComponent} from '../../components/CommonComponents/ButtonComponent';
-import {InputText} from '../../components/CommonComponents/InputTex';
-import Paper from 'material-ui/Paper';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {HeaderComponent} from "../../components/HeaderComponent";
-import {RowLabelWithDialogButtonComponent} from "../../components/CommonComponents/RowLabelWithDialogButtonComponent";
-import {RowInputTextComponent} from "../../components/CommonComponents/RowInputTextComponent";
 import {RowComponent} from "../../components/RowComponent";
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-
-const jenkinsImage = require("../../../assets/jenkins.png");
-
-let imageStyle = {
-    height: "150px",
-    width: "auto"
-};
+import Spinner from 'react-spinner-children';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Snackbar from 'material-ui/Snackbar';
+import {store} from "../../components/App";
+import {ShowSnackBarRequestJobSuccessAction} from "../../actions/ShowSnackBarRequestJobSuccessAction";
+import {ShowSnackBarRequestJobFailedAction} from "../../actions/ShowSnackBarRequestJobFailedAction";
+import {SpinnerSendJobChangeAction} from "../../actions/SpinnerSendJobChangeAction";
 
 export interface IPropsJobPage {
     jobPage: JobPageDTO;
@@ -28,11 +20,13 @@ export interface IPropsJobPage {
 export interface IDispatchPropsJobPage {
     onGitUrlTexBox: (gitUrl) => any;
     onJobNameTexBox: (jobName) => any;
+    onClickCleanTextBoxs: () => any;
+    onClickCreateJob: (gitUrl, jobName) => any;
 }
 
 export interface IStateJobPage {
-
 }
+
 
 export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPage, IStateJobPage> {
     public constructor(props: IPropsJobPage & IDispatchPropsJobPage) {
@@ -46,6 +40,20 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
     private onChangeTextJobName(value: any) {
         this.props.onJobNameTexBox(value)
     }
+
+    private onClickCreateJob() {
+        this.props.onClickCreateJob(this.props.jobPage._jobDTO._url, this.props.jobPage._jobDTO._jobName);
+        store.dispatch(SpinnerSendJobChangeAction(false));
+    }
+
+    private manageSnackBarRequestJobSuccess() {
+        store.dispatch(ShowSnackBarRequestJobSuccessAction(false));
+    }
+
+    private manageSnackBarRequestJobFail() {
+        store.dispatch(ShowSnackBarRequestJobFailedAction(false));
+    }
+
 
     public render() {
         return (
@@ -61,13 +69,17 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                                 <HeaderComponent/>
                             </div>
 
-                            <RowComponent valueToText={this.props.jobPage._jobDTO._url} onChangeText={this.onChangeTextGitUrl.bind(this)} faqDialogTittle={"About the Git url"}
+                            <RowComponent valueToText={this.props.jobPage._jobDTO._url}
+                                          onChangeText={this.onChangeTextGitUrl.bind(this)}
+                                          faqDialogTittle={"About the Git url"}
                                           faqDialogText={"This is the Git url repository used to build the job inside Jenkins. " +
                                           "This repository should contain a Jenkinsfile in order to conduct the build."}
                                           spanlabelText={"URL (git SCM)"} buttonText={"Which URL?"}
                                           inputTextBoxLabelText={"URL"} inputTextBoxHintText={"git@example:...git"}/>
 
-                            <RowComponent valueToText={this.props.jobPage._jobDTO._jobName} onChangeText={this.onChangeTextJobName.bind(this)} faqDialogTittle={"About the job name"}
+                            <RowComponent valueToText={this.props.jobPage._jobDTO._jobName}
+                                          onChangeText={this.onChangeTextJobName.bind(this)}
+                                          faqDialogTittle={"About the job name"}
                                           faqDialogText={"This is the job or alias used by Jenkins in order to identify this job. It's also usefull in other " +
                                           "project related structures such as the compile buidls"}
                                           spanlabelText={"Job name"} buttonText={"Job name?"}
@@ -75,19 +87,40 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                                           inputTextBoxHintText={"project-parent..."}/>
 
                             <div className="row row-separation">
-                                <div className="col-md-offset-3 col-md-2">
-                                    <ButtonComponent onButtonPressed={() => console.log("soy el boton 1")}
-                                                     label={"Create job"} value={"buttonAccept"}
-                                                     primary={true}/>
-                                </div>
+
+                                <Spinner loaded={this.props.jobPage._spinnerLoadedSendJob}>
+                                    <div className="col-md-offset-3 col-md-2">
+
+                                        <ButtonComponent onButtonPressed={this.onClickCreateJob.bind(this)}
+                                                         label={"Create job"} value={"buttonAccept"}
+                                                         primary={true}/>
+                                    </div>
+                                </Spinner>
 
                                 <div className="col-md-offset-2 col-md-2">
-                                    <ButtonComponent onButtonPressed={() => console.log("soy el boton 1")}
+                                    <ButtonComponent onButtonPressed={this.props.onClickCleanTextBoxs}
                                                      label={"Clear fields"} value={"buttonClear"}
                                                      primary={false}
                                                      secondary={true}/>
                                 </div>
                             </div>
+
+                            <MuiThemeProvider>
+                                <div>
+                                    <Snackbar
+                                        open={this.props.jobPage._showSnackBarRequestJobSuccess}
+                                        message={"Job uploaded to Jenkins correctly"}
+                                        autoHideDuration={4000}
+                                        onRequestClose={this.manageSnackBarRequestJobSuccess.bind(this)}
+                                    />
+                                    <Snackbar
+                                        open={this.props.jobPage._showSnackBarRequestJobFailed}
+                                        message={"There was an error during the job sending request"}
+                                        autoHideDuration={4000}
+                                        onRequestClose={this.manageSnackBarRequestJobFail.bind(this)}
+                                    />
+                                </div>
+                            </MuiThemeProvider>
                         </div>
                     </CSSTransition>
                 </TransitionGroup>
