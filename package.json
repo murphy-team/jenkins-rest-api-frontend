@@ -1,5 +1,5 @@
 {
-  "name": "react-test-concept",
+  "name": "jenkins-rest-api-frontend",
   "version": "1.0.0",
   "description": "React basic concept example with webpack, typescript and optional redux",
   "main": "index.js",
@@ -54,10 +54,10 @@
     "@types/react-dom": "^16.0.3",
     "@types/react-intl": "^2.3.3",
     "@types/react-intl-redux": "^0.1.7",
-    "@types/react-router-redux": "^5.0.11",
     "@types/react-redux": "^5.0.14",
     "@types/react-router": "^4.0.20",
     "@types/react-router-dom": "^4.2.3",
+    "@types/react-router-redux": "^5.0.11",
     "@types/react-tap-event-plugin": "^0.0.30",
     "@types/react-transition-group": "^2.0.6",
     "@types/webpack-env": "^1.13.3",

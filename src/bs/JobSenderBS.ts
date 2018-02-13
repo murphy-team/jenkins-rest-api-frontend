@@ -13,7 +13,7 @@ export class JobSenderBS {
                 "jobName": jobName
             },
             method: 'post',
-            url: "http://" + Constants.IP_ADDRESS + ":1313/job",
+            url: "http://" + Constants.IP_ADDRESS + ":8136/jenkins/api/job",
             timeout: 10000,
             headers: {
                 'Content-Type': 'application/json'
