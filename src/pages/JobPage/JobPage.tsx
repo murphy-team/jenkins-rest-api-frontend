@@ -43,9 +43,13 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
     }
 
     private onClickCreateJob() {
-        this.props.onClickCreateJob(this.props.jobPage._jobDTO._url, this.props.jobPage._jobDTO._jobName);
+        this.props.onTestRegexExpression();
 
-        store.dispatch(SpinnerSendJobChangeAction(false));
+        if (this.props.jobPage._testRegexExpressionOfGitUrl === true) {
+            this.props.onClickCreateJob(this.props.jobPage._jobDTO._url, this.props.jobPage._jobDTO._jobName);
+            store.dispatch(SpinnerSendJobChangeAction(false));
+        }
+
     }
 
     private manageSnackBarRequestJobSuccess() {

@@ -15,6 +15,7 @@ export class JobPageState {
         this._jobPageDTO._showSnackBarRequestJobSuccess = false;
         this._jobPageDTO._showSnackBarRequestJobFailed = false;
         this._jobPageDTO._spinnerLoadedSendJob = true;
+        this._jobPageDTO._testRegexExpressionOfGitUrl = false;
     }
 }
 
@@ -25,12 +26,7 @@ export function JobPageReducer(state: JobPageState = new JobPageState(), action:
         case ActionConstants.WRITE_GIT_URL:
             let newGitUrlState = objectAssign({}, state._jobPageDTO, {});
             let gitUrlFromAction = action["gitUrl"];
-            const re = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/g);
-            let isAccepted = re.test(gitUrlFromAction);
-
-            if (isAccepted === true) {
-                newGitUrlState._jobDTO._url = gitUrlFromAction;
-            }
+            newGitUrlState._jobDTO._url = gitUrlFromAction;
             newState = objectAssign({}, state, {_jobPageDTO: newGitUrlState});
             return newState;
 
@@ -67,7 +63,16 @@ export function JobPageReducer(state: JobPageState = new JobPageState(), action:
             return newState;
 
         case ActionConstants.TEST_REGEX_EXPRESSION:
+            let newPageTestRegexExpressionOfGitUrl = objectAssign({}, state._jobPageDTO, {});
+            let gitLink = newPageTestRegexExpressionOfGitUrl._jobDTO._url
+            const re = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/g);
+            let isAccepted = re.test(gitLink);
 
+            if (isAccepted === true) {
+                newPageTestRegexExpressionOfGitUrl._testRegexExpressionOfGitUrl = true;
+            }
+            newState = objectAssign({}, state, {_jobPageDTO: newPageTestRegexExpressionOfGitUrl});
+            return newState;
     }
             return state;
 
