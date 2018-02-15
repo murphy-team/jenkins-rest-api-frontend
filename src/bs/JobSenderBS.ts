@@ -13,7 +13,7 @@ export class JobSenderBS {
                 "jobName": jobName
             },
             method: 'post',
-            url: "http://localhost:1313/job",
+            url: "http://"+ Constants.IP_ADDRESS +"/job",
             timeout: 10000,
             headers: {
                 'Content-Type': 'application/json'

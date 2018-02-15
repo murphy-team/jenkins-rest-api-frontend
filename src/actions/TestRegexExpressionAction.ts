@@ -2,7 +2,7 @@ import {RegularExpressionBS} from "../bs/RegularExpressionBS";
 import {SpinnerSendJobChangeAction} from "./SpinnerSendJobChangeAction";
 import {RequestJobAction} from "./RequestJobAction";
 import {ChangeTextErrorTextField} from "./ChangeTextErrorTextField";
-import {store} from "../components/App";
+import {ShowSnackBarInvalidURLAction} from "./ShowSnackBarInvalidURLAction";
 
 export function TestRegexExpressionAction(gitUrl, jobName) {
 
@@ -17,8 +17,8 @@ export function TestRegexExpressionAction(gitUrl, jobName) {
             dispatch(SpinnerSendJobChangeAction(false));
 
         } else {
-            dispatch(ChangeTextErrorTextField(valid))
-
+            dispatch(ChangeTextErrorTextField(valid));
+            dispatch(ShowSnackBarInvalidURLAction(true));
         }
     }
 }

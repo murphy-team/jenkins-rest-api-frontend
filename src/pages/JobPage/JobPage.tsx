@@ -11,7 +11,6 @@ import Snackbar from 'material-ui/Snackbar';
 import {store} from "../../components/App";
 import {ShowSnackBarRequestJobSuccessAction} from "../../actions/ShowSnackBarRequestJobSuccessAction";
 import {ShowSnackBarRequestJobFailedAction} from "../../actions/ShowSnackBarRequestJobFailedAction";
-import {SpinnerSendJobChangeAction} from "../../actions/SpinnerSendJobChangeAction";
 import {ShowSnackBarInvalidURLAction} from "../../actions/ShowSnackBarInvalidURLAction";
 
 export interface IPropsJobPage {

@@ -1,4 +1,3 @@
-import {Constants} from "../common/Constants";
 
 export class RegularExpressionBS {
 

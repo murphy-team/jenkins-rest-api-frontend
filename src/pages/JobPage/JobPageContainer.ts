@@ -4,7 +4,6 @@ import {IDispatchPropsJobPage, IPropsJobPage, JobPage} from "./JobPage";
 import {WriteGitURLAction} from "../../actions/WriteGitURLAction";
 import {WriteJobNameAction} from "../../actions/WriteJobNameAction";
 import {CleanTextBoxsAction} from "../../actions/CleanTextBoxsAction";
-import {RequestJobAction} from "../../actions/RequestJobAction";
 import {TestRegexExpressionAction} from "../../actions/TestRegexExpressionAction";
 
 
