@@ -15,7 +15,8 @@ export class JobPageState {
         this._jobPageDTO._showSnackBarRequestJobSuccess = false;
         this._jobPageDTO._showSnackBarRequestJobFailed = false;
         this._jobPageDTO._spinnerLoadedSendJob = true;
-        this._jobPageDTO._testRegexExpressionOfGitUrl = false;
+        this._jobPageDTO._errorText = "";
+        this._jobPageDTO._showSnackBarInvalidURL = false;
     }
 }
 
@@ -62,16 +63,22 @@ export function JobPageReducer(state: JobPageState = new JobPageState(), action:
             newState = objectAssign({}, state, {_jobPageDTO: newPageShowingJobRequestFailedSnackbar});
             return newState;
 
-        case ActionConstants.TEST_REGEX_EXPRESSION:
-            let newPageTestRegexExpressionOfGitUrl = objectAssign({}, state._jobPageDTO, {});
-            let gitLink = newPageTestRegexExpressionOfGitUrl._jobDTO._url
-            const re = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/g);
-            let isAccepted = re.test(gitLink);
+        case ActionConstants.CHANGE_TEXT_ERROR_TEXT_FIELD:
+            let newPageChangeErrorTextField = objectAssign({}, state._jobPageDTO, {});
+            let valid = action["valid"];
 
-            if (isAccepted === true) {
-                newPageTestRegexExpressionOfGitUrl._testRegexExpressionOfGitUrl = true;
+            if (valid === true) {
+                newPageChangeErrorTextField._errorText = "";
+            } else {
+                newPageChangeErrorTextField._errorText = "You must provide a valid URL";
             }
-            newState = objectAssign({}, state, {_jobPageDTO: newPageTestRegexExpressionOfGitUrl});
+            newState = objectAssign({}, state, {_jobPageDTO: newPageChangeErrorTextField});
+            return newState;
+
+        case ActionConstants.SHOW_SNACKBAR_INVALID_URL:
+            let newPageShowingInvalidURLSnackBar = objectAssign({}, state._jobPageDTO, {});
+            newPageShowingInvalidURLSnackBar._showSnackBarInvalidURL = action["showSnackBarInvalidURL"];
+            newState = objectAssign({}, state, {_jobPageDTO: newPageShowingInvalidURLSnackBar});
             return newState;
     }
             return state;

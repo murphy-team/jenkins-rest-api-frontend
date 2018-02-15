@@ -12,6 +12,7 @@ import {store} from "../../components/App";
 import {ShowSnackBarRequestJobSuccessAction} from "../../actions/ShowSnackBarRequestJobSuccessAction";
 import {ShowSnackBarRequestJobFailedAction} from "../../actions/ShowSnackBarRequestJobFailedAction";
 import {SpinnerSendJobChangeAction} from "../../actions/SpinnerSendJobChangeAction";
+import {ShowSnackBarInvalidURLAction} from "../../actions/ShowSnackBarInvalidURLAction";
 
 export interface IPropsJobPage {
     jobPage: JobPageDTO;
@@ -21,8 +22,7 @@ export interface IDispatchPropsJobPage {
     onGitUrlTexBox: (gitUrl) => any;
     onJobNameTexBox: (jobName) => any;
     onClickCleanTextBoxs: () => any;
-    onClickCreateJob: (gitUrl, jobName) => any;
-    onTestRegexExpression: () => any;
+    onTestRegexExpression: (gitUrl, jobName) => any;
 }
 
 export interface IStateJobPage {
@@ -43,12 +43,7 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
     }
 
     private onClickCreateJob() {
-        this.props.onTestRegexExpression();
-
-        if (this.props.jobPage._testRegexExpressionOfGitUrl === true) {
-            this.props.onClickCreateJob(this.props.jobPage._jobDTO._url, this.props.jobPage._jobDTO._jobName);
-            store.dispatch(SpinnerSendJobChangeAction(false));
-        }
+        this.props.onTestRegexExpression(this.props.jobPage._jobDTO._url, this.props.jobPage._jobDTO._jobName);
 
     }
 
@@ -58,6 +53,10 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
 
     private manageSnackBarRequestJobFail() {
         store.dispatch(ShowSnackBarRequestJobFailedAction(false));
+    }
+
+    private manageSnackBarInvalidURL() {
+        store.dispatch(ShowSnackBarInvalidURLAction(false));
     }
 
 
@@ -81,7 +80,8 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                                           faqDialogText={"This is the Git url repository used to build the job inside Jenkins. " +
                                           "This repository should contain a Jenkinsfile in order to conduct the build."}
                                           spanlabelText={"URL (git SCM)"} buttonText={"Which URL?"}
-                                          inputTextBoxLabelText={"URL"} inputTextBoxHintText={"git@example:...git"}/>
+                                          inputTextBoxLabelText={"URL"} inputTextBoxHintText={"git@example:...git"}
+                                          errorText={this.props.jobPage._errorText}/>
 
                             <RowComponent valueToText={this.props.jobPage._jobDTO._jobName}
                                           onChangeText={this.onChangeTextJobName.bind(this)}
@@ -124,6 +124,12 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                                         message={"There was an error during the job sending request"}
                                         autoHideDuration={4000}
                                         onRequestClose={this.manageSnackBarRequestJobFail.bind(this)}
+                                    />
+                                    <Snackbar
+                                        open={this.props.jobPage._showSnackBarInvalidURL}
+                                        message={"You must provide a valid repository link"}
+                                        autoHideDuration={4000}
+                                        onRequestClose={this.manageSnackBarInvalidURL.bind(this)}
                                     />
                                 </div>
                             </MuiThemeProvider>

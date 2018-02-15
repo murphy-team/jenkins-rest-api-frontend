@@ -16,8 +16,7 @@ const mapDispatchToProps = (dispatch): IDispatchPropsJobPage => ({
     onGitUrlTexBox: (gitUrl) => dispatch(WriteGitURLAction(gitUrl)),
     onJobNameTexBox: (jobName) => dispatch(WriteJobNameAction(jobName)),
     onClickCleanTextBoxs: () => dispatch(CleanTextBoxsAction()),
-    onClickCreateJob: (gitUrl, jobName) => dispatch(RequestJobAction(gitUrl, jobName)),
-    onTestRegexExpression: () => dispatch(TestRegexExpressionAction())
+    onTestRegexExpression: (gitUrl, jobName) => dispatch(TestRegexExpressionAction(gitUrl, jobName))
 });
 
 export const JobPageContainer = (connect<IPropsJobPage, IDispatchPropsJobPage>(

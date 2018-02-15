@@ -1,11 +1,24 @@
-import {ActionConstants} from "./ActionConstants";
+import {RegularExpressionBS} from "../bs/RegularExpressionBS";
+import {SpinnerSendJobChangeAction} from "./SpinnerSendJobChangeAction";
+import {RequestJobAction} from "./RequestJobAction";
+import {ChangeTextErrorTextField} from "./ChangeTextErrorTextField";
+import {store} from "../components/App";
 
-export interface ITestRegexExpressionAction {
-    type: string;
-}
+export function TestRegexExpressionAction(gitUrl, jobName) {
 
-export function TestRegexExpressionAction(): ITestRegexExpressionAction {
-    return {
-        type: ActionConstants.TEST_REGEX_EXPRESSION,
-    };
+    let regularExpressionBS = new RegularExpressionBS();
+    let valid = regularExpressionBS.testRegularExpresion(gitUrl);
+
+    return function (dispatch) {
+
+        if (valid === true) {
+            dispatch(ChangeTextErrorTextField(valid));
+            dispatch(RequestJobAction(gitUrl, jobName));
+            dispatch(SpinnerSendJobChangeAction(false));
+
+        } else {
+            dispatch(ChangeTextErrorTextField(valid))
+
+        }
+    }
 }
