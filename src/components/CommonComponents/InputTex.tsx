@@ -9,6 +9,7 @@ export interface IInputTextProps {
     floatingLabelText: string;
     valueToText: string;
     passwordField?: string;
+    errorText?: string;
 }
 
 export interface IState {
@@ -35,6 +36,7 @@ export class InputText extends React.Component<IInputTextProps, IState> {
                         floatingLabelText={this.props.floatingLabelText}
                         onChange={this.onChangeText.bind(this)}
                         value={this.props.valueToText}
+                        errorText={this.props.errorText}
                     />
                 </MuiThemeProvider>
             </div>

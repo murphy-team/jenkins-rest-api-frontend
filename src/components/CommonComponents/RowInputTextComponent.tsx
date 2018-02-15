@@ -6,6 +6,7 @@ export interface IRowInputTextComponentProps {
     onChangeText: (value) => any;
     labelText: string;
     hintText: string;
+    errorText?: string;
 }
 
 export interface IRowInputTextComponentState {
@@ -21,7 +22,8 @@ export class RowInputTextComponent extends React.Component<IRowInputTextComponen
         return (
             <div className="row-inputText">
                 <InputText hintText={this.props.hintText} floatingLabelText={this.props.labelText}
-                           onChangeText={this.props.onChangeText} valueToText={this.props.valueToText}/>
+                           onChangeText={this.props.onChangeText} valueToText={this.props.valueToText}
+                            errorText={this.props.errorText}/>
             </div>
         );
     }

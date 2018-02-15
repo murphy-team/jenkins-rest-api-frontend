@@ -11,7 +11,7 @@ export interface IPropsRowComponent {
     inputTextBoxHintText: string;
     faqDialogTittle: string;
     faqDialogText: string;
-
+    errorText?: string
 }
 
 export interface IDispatchPropsRowComponent {
@@ -41,7 +41,8 @@ export class RowComponent extends React.Component<IPropsRowComponent & IDispatch
                             <RowInputTextComponent valueToText={this.props.valueToText}
                                                    onChangeText={this.props.onChangeText}
                                                    labelText={this.props.inputTextBoxLabelText}
-                                                   hintText={this.props.inputTextBoxHintText}/>
+                                                   hintText={this.props.inputTextBoxHintText}
+                                                    errorText={this.props.errorText}/>
                         </div>
                     </div>
                 </div>
