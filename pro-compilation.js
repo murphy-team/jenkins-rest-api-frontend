@@ -36,16 +36,11 @@ module.exports = function (env) {
                 {
                     test: /\.(ts|tsx)$/,
                     exclude: /node_modules/,
-                    use: [{
-                        loader: 'awesome-typescript-loader'
-                    }]
-                },
-                {
-                    test: /\.js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: "babel-loader",
-                    }
+                    use: [
+                        {
+                            loader: 'awesome-typescript-loader'
+                        },
+                    ]
                 },
                 {
                     test: /\.(html)$/,
@@ -96,16 +91,13 @@ module.exports = function (env) {
             ]
         },
         plugins: [
+            new webpack.optimize.ModuleConcatenationPlugin(),
+
             new webpack.DefinePlugin({
-                process: {},
-                'process.env': {},
                 'process.env.NODE_ENV': JSON.stringify('production')
             }),
+
             new webpack.optimize.UglifyJsPlugin({
-                sourceMap: true,
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor',
                 compress: {
                     warnings: false,
                     screw_ie8: true,
@@ -120,6 +112,14 @@ module.exports = function (env) {
                 },
                 output: {
                     comments: false
+                }
+            }),
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendor',
+                filename: 'vendor.[hash].js',
+                minChunks(module) {
+                    return module.context &&
+                        module.context.indexOf('node_modules') >= 0;
                 }
             }),
             new webpack.HashedModuleIdsPlugin(),
