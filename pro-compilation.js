@@ -4,12 +4,13 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let basePath = __dirname;
 
-module.exports = function (env) {
-    return {
+module.exports = {
         context: path.join(basePath, 'src'),
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx']
         },
+
+        mode: 'production',
 
         target: "web",
 
@@ -31,6 +32,24 @@ module.exports = function (env) {
             filename: '[hash].[name].js'
         },
 
+        performance: {
+            hints: false,
+        },
+
+        optimization: {
+            minimize: true,
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendor',
+                        chunks: 'initial',
+                        enforce: true
+                    }
+                }
+            }
+        },
+
         module: {
             rules: [
                 {
@@ -38,7 +57,7 @@ module.exports = function (env) {
                     exclude: /node_modules/,
                     use: [
                         {
-                            loader: 'awesome-typescript-loader'
+                            loader: 'ts-loader'
                         },
                     ]
                 },
@@ -96,32 +115,6 @@ module.exports = function (env) {
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify('production')
             }),
-
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false,
-                    screw_ie8: true,
-                    conditionals: true,
-                    unused: true,
-                    comparisons: true,
-                    sequences: true,
-                    dead_code: true,
-                    evaluate: true,
-                    if_return: true,
-                    join_vars: true
-                },
-                output: {
-                    comments: false
-                }
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor',
-                filename: 'vendor.[hash].js',
-                minChunks(module) {
-                    return module.context &&
-                        module.context.indexOf('node_modules') >= 0;
-                }
-            }),
             new webpack.HashedModuleIdsPlugin(),
             new ExtractTextPlugin({
                 filename: '[hash].[name].css',
@@ -138,11 +131,6 @@ module.exports = function (env) {
                     removeComments: true,
                     removeRedundantAttributes: true
                 }
-            }),
-            new webpack.ProvidePlugin({
-                $: "jquery",
-                jQuery: "jquery"
-            }),
+            })
         ]
-    }
 };

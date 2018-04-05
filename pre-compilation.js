@@ -6,12 +6,13 @@ let CleanWebpackPlugin = require('clean-webpack-plugin');
 
 let basePath = __dirname;
 
-module.exports = function (env) {
-    return {
+module.exports = {
         context: path.join(basePath, 'src'),
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx']
         },
+
+        mode: 'development',
 
         target: "web",
 
@@ -58,7 +59,7 @@ module.exports = function (env) {
                     test: /\.(ts|tsx)$/,
                     exclude: /node_modules/,
                     use: [{
-                        loader: 'awesome-typescript-loader'
+                        loader: 'ts-loader'
                     }]
                 },
                 {
@@ -120,9 +121,6 @@ module.exports = function (env) {
             }),
             //Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
 
-            new webpack.optimize.CommonsChunkPlugin({
-                names: ['vendor', 'manifest'],
-            }),
             new ExtractTextPlugin({
                 filename: '[hash].[name].css',
                 disable: false,
@@ -138,5 +136,4 @@ module.exports = function (env) {
                 jQuery: "jquery"
             }),
         ]
-    }
 }
