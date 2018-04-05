@@ -94,7 +94,7 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                             <div className="row row-separation">
 
                                 <Spinner loaded={this.props.jobPage._spinnerLoadedSendJob}>
-                                    <div className="col-md-offset-3 col-md-2">
+                                    <div className="offset-md-3 col-md-2">
 
                                         <ButtonComponent onButtonPressed={this.onClickCreateJob.bind(this)}
                                                          label={"Create job"} value={"buttonAccept"}
@@ -102,7 +102,7 @@ export class JobPage extends React.Component<IPropsJobPage & IDispatchPropsJobPa
                                     </div>
                                 </Spinner>
 
-                                <div className="col-md-offset-2 col-md-2">
+                                <div className="offset-md-2 col-md-2">
                                     <ButtonComponent onButtonPressed={this.props.onClickCleanTextBoxs}
                                                      label={"Clear fields"} value={"buttonClear"}
                                                      primary={false}

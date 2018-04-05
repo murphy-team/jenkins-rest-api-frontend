@@ -30,13 +30,13 @@ export class RowComponent extends React.Component<IPropsRowComponent & IDispatch
         return (
             <div>
                 <div className="row row-separation">
-                    <div className="well col-md-6">
+                    <div className="card bg-light col-md-6">
                         <RowLabelWithDialogButtonComponent faqDialogTitle={this.props.faqDialogTittle}
                                                            faqDialogText={this.props.faqDialogText}
                                                            buttonText={this.props.buttonText}
                                                            labelText={this.props.spanlabelText}/>
                     </div>
-                    <div className="well col-md-6">
+                    <div className="card bg-light col-md-6">
                         <div>
                             <RowInputTextComponent valueToText={this.props.valueToText}
                                                    onChangeText={this.props.onChangeText}
