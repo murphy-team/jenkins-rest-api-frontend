@@ -17,7 +17,7 @@
   "homepage": "https://bitbucket.org/murphy_team/react-test-concept#readme",
   "dependencies": {
     "axios": "^0.17.1",
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^3.3.7",
     "core-js": "^2.5.3",
     "history": "^4.6.1",
     "intl-format-cache": "^2.0.5",
@@ -45,7 +45,6 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "@types/bootstrap": "^4.0.1",
     "@types/core-js": "^0.9.46",
     "@types/object-assign": "^4.0.30",
     "@types/q": "^1.0.6",
