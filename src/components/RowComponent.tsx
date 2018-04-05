@@ -29,7 +29,7 @@ export class RowComponent extends React.Component<IPropsRowComponent & IDispatch
     public render() {
         return (
             <div>
-                <div className="row row-separation">
+                <div className="row-separation">
                     <div className="well col-md-6">
                         <RowLabelWithDialogButtonComponent faqDialogTitle={this.props.faqDialogTittle}
                                                            faqDialogText={this.props.faqDialogText}
